@@ -192,7 +192,7 @@ def update_board():
 
 
 def update_ant():
-	global ant_x, ant_y, ant_dir
+	global ant_x, ant_y, ant_dir, step
 
 	if board[ant_x][ant_y] is 0:
 		board[ant_x][ant_y] = 1
@@ -210,15 +210,20 @@ def update_ant():
 	elif ant_dir is 3:  # left
 		ant_x = (ant_x - 1) % BOARD_WIDTH
 
+	step += 1
 
-ant_x = 20
-ant_y = 15
+	print("update ant")
+	return
+
+
+ant_x = 40
+ant_y = 30
 ant_dir = 0  # 0=up 1=right 2=down 3=left
 
-BOARD_WIDTH = 40
-BOARD_HEIGHT = 30
+BOARD_WIDTH = 80
+BOARD_HEIGHT = 60
 
-SPOT_LENGTH = 20
+SPOT_LENGTH = 10
 
 board = [[0 for y in range(0, BOARD_HEIGHT)] for x in range(0, BOARD_WIDTH)]
 
@@ -231,6 +236,8 @@ board_display = [[canvas.create_rectangle(0, 0, 0, 0) for y in range(0, BOARD_HE
 
 paused = True
 speed = 100  # frames to wait to call after
+
+step = 0  # which generation it is
 
 play_b = Button(window, text="Play", command=play_ant)
 play_b.pack(side=LEFT)
@@ -251,4 +258,7 @@ canvas.bind("<Button-1>", left_mouse)
 window.after(0, update_all())
 mainloop()
 
+print("PROGRAM ENDED ON STEP: " + str(step))
+
+print("")
 print("fin~~~")
