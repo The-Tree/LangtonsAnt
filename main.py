@@ -7,7 +7,7 @@ def left_mouse(event):
 			board[int(event.x/SPOT_LENGTH)][int(event.y/SPOT_LENGTH)] = 1
 		elif board[int(event.x/SPOT_LENGTH)][int(event.y/SPOT_LENGTH)] is 1:
 			board[int(event.x/SPOT_LENGTH)][int(event.y/SPOT_LENGTH)] = 0
-		update_board()
+		display_board()
 
 	print("left mouse")
 	return
@@ -78,8 +78,12 @@ def next_ant():
 
 
 def clear_ant():
-	global board
+	global board, step, ant_dir, ant_y, ant_x
 	if paused is True:
+		step = 0
+		ant_dir = ant_dir_start
+		ant_y = ant_y_start
+		ant_x = ant_x_start
 		board = [[0 for y in range(0, BOARD_HEIGHT)] for x in range(0, BOARD_WIDTH)]
 		display_board()
 
@@ -216,9 +220,13 @@ def update_ant():
 	return
 
 
-ant_x = 40
-ant_y = 30
-ant_dir = 0  # 0=up 1=right 2=down 3=left
+ant_x_start = 40
+ant_y_start = 30
+ant_dir_start = 0
+
+ant_x = ant_x_start
+ant_y = ant_y_start
+ant_dir = ant_dir_start # 0=up 1=right 2=down 3=left
 
 BOARD_WIDTH = 80
 BOARD_HEIGHT = 60
